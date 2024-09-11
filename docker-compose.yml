@@ -1,0 +1,23 @@
+version: '3'
+services:
+  medusa:
+    image: medusajs/medusa
+    container_name: medusa-backend
+    environment:
+      - MEDUSA_SERVER_HOST=0.0.0.0
+      - MEDUSA_SERVER_PORT=9000
+      - MEDUSA_DB_URL=postgres://postgres:password@db:5432/medusa
+    ports:
+      - "9000:9000"
+    depends_on:
+      - db
+
+  db:
+    image: postgres
+    container_name: medusa-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=medusa
+    ports:
+      - "5432:5432"
